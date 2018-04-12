@@ -6,3 +6,5 @@ str_a="AAAAABBBBBCCCCCC"
 str_b = str_a.replace('A','D',2)
 print(str_a)
 print(str_b)
+
+#test line
