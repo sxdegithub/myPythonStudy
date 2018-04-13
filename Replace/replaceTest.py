@@ -27,10 +27,10 @@ print(str_b)
 
 # 比较字符串
 # strcmp(sStr1,sStr2)
-import operator
-sStr1 = 'strchr'
-sStr2 = 'strch'
-print(operator.eq(sStr1, sStr2))
+# import operator
+# sStr1 = 'strchr'
+# sStr2 = 'strch'
+# print(operator.eq(sStr1, sStr2))
 
 # 扫描字符串是否包含指定的字符
 # strspn(sStr1,sStr2)
@@ -84,13 +84,14 @@ print(operator.eq(sStr1, sStr2))
 # 后面的数字为步进，-1时候，字符串倒序输出
 # strrev(sStr1)
 # sStr1 = 'abcdefg'
-# sStr2 = sStr1[::-1]
+sStr1 = '你是谁'
+sStr2 = sStr1[::-1]
 # sStr3 = sStr1[::]
 # sStr4 = sStr1[::2]
 # sStr5 = sStr1[1::-1]
 # sStr6 = sStr1[1::]
 #
-# print(sStr2)
+print(sStr2)
 # print(sStr3)
 # print(sStr4)
 # print(sStr5)
