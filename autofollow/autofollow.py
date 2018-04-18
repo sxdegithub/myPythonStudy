@@ -131,19 +131,18 @@ class Shopee:
             self.driver.find_element_by_xpath(
                 "//div[@id='main']/div/div/div[2]/div[1]/div/div[1]/div/ul[2]/li[5]").click()
 
+            self.driver.find_element_by_xpath("//input[@class='input-with-status__input' and @type='text']").send_keys(
+                username)
             self.driver.find_element_by_xpath(
-                "//*[@id='main']/div/div/div[2]/div[1]/span/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div[2]/div/input") \
-                .send_keys(username)
-            self.driver.find_element_by_xpath(
-                "//*[@id='main']/div/div/div[2]/div[1]/span/div/div[1]/div/div[2]/div[1]/div/div/div[1]/div[3]/div/input") \
-                .send_keys(password)
+                "//input[@class='input-with-status__input' and @type='password']").send_keys(password)
             self.driver.find_element_by_css_selector(
                 "div.auth-form-submit-cancel > button.shopee-button-solid.shopee-button-solid--primary").click()
 
             time.sleep(2)
 
+
 if __name__ == '__main__':
     op = Shopee()
-    op.login_shopee('123123@qq.com', '123')
+    op.login_shopee( , )
     unfollow_user_list = op.get_follow_lis_unf('1')
-    # op.follow_unf(unfollow_user_list)
+    op.follow_unf(unfollow_user_list)
