@@ -7,7 +7,7 @@ from  pymysql import MySQLError
 # https://cuiqingcai.com/5578.html
 # 连接数据库，创建表
 ##################################################################################################
-# db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 # cursor = db.cursor()
 # sql = 'CREATE TABLE IF NOT EXISTS spider_two(id VARCHAR(100) NOT NULL,name VARCHAR(100) NOT NULL,age INT NOT NULL,' \
 #       'PRIMARY KEY(id))'
@@ -21,7 +21,7 @@ from  pymysql import MySQLError
 # name = 'sx'
 # age = 17
 # value = (id, name, age)
-# db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 # cursor = db.cursor()
 # sql = 'INSERT INTO spider_two(id,name,age) values (%s, %s, %s)'
 # try:
@@ -47,7 +47,7 @@ from  pymysql import MySQLError
 # table = 'spider_two'
 # keys = ', '.join(data.keys())
 # values = ', '.join(['%s'] * len(data))
-# db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 # cursor = db.cursor()
 # sql = 'INSERT INTO {table}({keys}) values ({values})'.format(table=table, keys=keys, values=values)
 # try:
@@ -92,7 +92,7 @@ from  pymysql import MySQLError
 # update=','.join(['{key}=%s'.format(key=key) for key in data])
 # sql+=update
 #
-# db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 # cursor = db.cursor()
 # try:
 #     cursor.execute(sql,tuple(data.values())*2)
@@ -111,7 +111,7 @@ from  pymysql import MySQLError
 # table = 'spider_two'
 # condition = 'age > 20'
 #
-# db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 # cursor = db.cursor()
 # sql_delete = 'DELETE FROM {table} WHERE {condition}'.format(table=table,condition=condition)
 # try:
@@ -125,7 +125,7 @@ from  pymysql import MySQLError
 # ##################################################################################################
 
 # 查询数据
-db = pymysql.connect(host='localhost', user='root', password='sx6756377', port=3306, db='sqlstudy')
+db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
 cursor = db.cursor()
 sql_select = 'SELECT * FROM spider_two WHERE age>2'
 # try:
