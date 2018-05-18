@@ -124,10 +124,13 @@ from  pymysql import MySQLError
 # db.close()
 # ##################################################################################################
 
+
+
 # 查询数据
-db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
-cursor = db.cursor()
-sql_select = 'SELECT * FROM spider_two WHERE age>2'
+# ##################################################################################################
+# db = pymysql.connect(host='localhost', user='root', password='', port=3306, db='sqlstudy')
+# cursor = db.cursor()
+# sql_select = 'SELECT * FROM spider_two WHERE age>2'
 # try:
 #     cursor.execute(sql_select)
 #     print("count:", cursor.rowcount)
@@ -142,12 +145,17 @@ sql_select = 'SELECT * FROM spider_two WHERE age>2'
 #     print(e)
 
 # 使用fetchone偏移，随取随用
-try:
-    cursor.execute(sql_select)
-    print('Count:',cursor.rowcount)
-    row = cursor.fetchone()
-    while row:
-        print('Row:',row)
-        row = cursor.fetchone()
-except MySQLError as e:
-    print(e)
+# try:
+#     cursor.execute(sql_select)
+#     print('Count:',cursor.rowcount)
+#     row = cursor.fetchone()
+#     while row:
+#         print('Row:',row)
+#         row = cursor.fetchone()
+# except MySQLError as e:
+#     print(e)
+# ##################################################################################################
+
+
+
+
