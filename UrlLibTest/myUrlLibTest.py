@@ -637,9 +637,9 @@ html = '''<div id="songs-list">
     </ul>
 </div>'''
 
-pattern = '<li.*?active.*?singer="(.*?)">(.*?)</a>'
-
-result = re.search(pattern, html, re.S)
+# pattern = '<li.*?active.*?singer="(.*?)">(.*?)</a>'
+#
+# result = re.search(pattern, html, re.S)
 # print(result.group(1))
 # print(result.group(2))
 # print(result.group(0))
@@ -665,17 +665,300 @@ result = re.search(pattern, html, re.S)
 
 # 6. compile()
 # 这个方法可以将正则字符串编译成正则表达式对象，以便在后面的匹配中复用
-import re
+# import re
+#
+# content1 = '2016-12-15 12:00'
+# content2 = '2016-12-17 12:55'
+# content3 = '2016-12-22 13:21'
+# pattern = re.compile('\d{2}:\d{2}')
+# result1 = pattern.sub('', content1)
+# result2 = pattern.sub('', content2)
+# result3 = pattern.sub('', content3)
+# # 等同于
+# #       = re.sub(pattern,'',content1)
+# print(result1)
+# print(result2)
+# print(result3)
 
-content1 = '2016-12-15 12:00'
-content2 = '2016-12-17 12:55'
-content3 = '2016-12-22 13:21'
-pattern = re.compile('\d{2}:\d{2}')
-result1 = pattern.sub('', content1)
-result2 = pattern.sub('', content2)
-result3 = pattern.sub('', content3)
-# 等同于
-#       = re.sub(pattern,'',content1)
-print(result1)
-print(result2)
-print(result3)
+# [Python3网络爬虫开发实战] 3.4-抓取猫眼电影排行
+# https://cuiqingcai.com/5534.html
+import re
+import requests
+import urllib.error
+
+
+# def get_one_page(url, headers, proxies):
+#     try:
+#         response = requests.get(url, headers=headers, proxies=proxies)
+#         # response = requests.get(url, headers=headers, proxies=proxies)
+#         if response.status_code == 200:
+#             return response.text
+#         return None
+#     except urllib.error as e:
+#         print(e)
+
+
+def parse_one_page(htmlInfo):
+    print(3)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36',
+        'Referer': 'http://maoyan.com/board/4?offset=10',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Host': 'maoyan.com'
+
+    }
+    proxies = {
+        'http': 'http://127.0.0.1:8888',
+        'https': 'https://127.0.0.1:8888'
+    }
+    url = 'http://maoyan.com/board/4?offset=0'
+    # html = get_one_page(url, headers, proxies)
+
+    # id、href、title、
+    pattern = re.compile(
+        '<dd>.*?board-index.*?>(.*?)</i>.*?data-src="(.*?)".*?name.*?a.*?>(.*?)</a>.*?star.*?>(.*?)</p>.*?releasetime.*?>(.*?)</p>.*?integer.*?>(.*?)</i>.*?fraction.*?>(.*?)</i>.*?</dd>',
+        re.S)
+    result = pattern.findall(htmlInfo)
+    print(3)
+    # for item in result:
+    #     yield {
+    #         'index': item[0],
+    #         'img': item[1],
+    #         'name': item[2],
+    #         'star': item[3],
+    #         'releasetime': item[4],
+    #         'point': item[5] + item[6]
+    #
+    #     }
+
+
+if __name__ == '__main__':
+    html = u'''
+
+                        <dd>
+                                <i class="board-index board-index-1">1</i>
+            <a href="/films/1203" title="霸王别姬" class="image-link" data-act="boarditem-click" data-val="{movieId:1203}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p1.meituan.net/movie/20803f59291c47e1e116c11963ce019e68711.jpg@160w_220h_1e_1c" alt="霸王别姬" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/1203" title="霸王别姬" data-act="boarditem-click" data-val="{movieId:1203}">霸王别姬</a></p>
+                <p class="star">
+                        主演：张国荣,张丰毅,巩俐
+                </p>
+        <p class="releasetime">上映时间：1993-01-01(中国香港)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">6</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-2">2</i>
+            <a href="/films/1297" title="肖申克的救赎" class="image-link" data-act="boarditem-click" data-val="{movieId:1297}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/__40191813__4767047.jpg@160w_220h_1e_1c" alt="肖申克的救赎" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/1297" title="肖申克的救赎" data-act="boarditem-click" data-val="{movieId:1297}">肖申克的救赎</a></p>
+                <p class="star">
+                        主演：蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿
+                </p>
+        <p class="releasetime">上映时间：1994-10-14(美国)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">5</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-3">3</i>
+            <a href="/films/2641" title="罗马假日" class="image-link" data-act="boarditem-click" data-val="{movieId:2641}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/23/6009725.jpg@160w_220h_1e_1c" alt="罗马假日" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/2641" title="罗马假日" data-act="boarditem-click" data-val="{movieId:2641}">罗马假日</a></p>
+                <p class="star">
+                        主演：格利高利·派克,奥黛丽·赫本,埃迪·艾伯特
+                </p>
+        <p class="releasetime">上映时间：1953-09-02(美国)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">1</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-4">4</i>
+            <a href="/films/4055" title="这个杀手不太冷" class="image-link" data-act="boarditem-click" data-val="{movieId:4055}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/fc9d78dd2ce84d20e53b6d1ae2eea4fb1515304.jpg@160w_220h_1e_1c" alt="这个杀手不太冷" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/4055" title="这个杀手不太冷" data-act="boarditem-click" data-val="{movieId:4055}">这个杀手不太冷</a></p>
+                <p class="star">
+                        主演：让·雷诺,加里·奥德曼,娜塔莉·波特曼
+                </p>
+        <p class="releasetime">上映时间：1994-09-14(法国)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">5</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-5">5</i>
+            <a href="/films/1247" title="教父" class="image-link" data-act="boarditem-click" data-val="{movieId:1247}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/92/8212889.jpg@160w_220h_1e_1c" alt="教父" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/1247" title="教父" data-act="boarditem-click" data-val="{movieId:1247}">教父</a></p>
+                <p class="star">
+                        主演：马龙·白兰度,阿尔·帕西诺,詹姆斯·肯恩
+                </p>
+        <p class="releasetime">上映时间：1972-03-24(美国)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">3</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-6">6</i>
+            <a href="/films/267" title="泰坦尼克号" class="image-link" data-act="boarditem-click" data-val="{movieId:267}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/11/324629.jpg@160w_220h_1e_1c" alt="泰坦尼克号" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/267" title="泰坦尼克号" data-act="boarditem-click" data-val="{movieId:267}">泰坦尼克号</a></p>
+                <p class="star">
+                        主演：莱昂纳多·迪卡普里奥,凯特·温丝莱特,比利·赞恩
+                </p>
+        <p class="releasetime">上映时间：1998-04-03</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">5</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-7">7</i>
+            <a href="/films/123" title="龙猫" class="image-link" data-act="boarditem-click" data-val="{movieId:123}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/c8f224ca9939cd9dd58f709c9c4deb0924422.jpg@160w_220h_1e_1c" alt="龙猫" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/123" title="龙猫" data-act="boarditem-click" data-val="{movieId:123}">龙猫</a></p>
+                <p class="star">
+                        主演：日高法子,坂本千夏,糸井重里
+                </p>
+        <p class="releasetime">上映时间：1988-04-16(日本)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">2</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-8">8</i>
+            <a href="/films/837" title="唐伯虎点秋香" class="image-link" data-act="boarditem-click" data-val="{movieId:837}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/62/109878.jpg@160w_220h_1e_1c" alt="唐伯虎点秋香" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/837" title="唐伯虎点秋香" data-act="boarditem-click" data-val="{movieId:837}">唐伯虎点秋香</a></p>
+                <p class="star">
+                        主演：周星驰,巩俐,郑佩佩
+                </p>
+        <p class="releasetime">上映时间：1993-07-01(中国香港)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">2</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-9">9</i>
+            <a href="/films/2760" title="魂断蓝桥" class="image-link" data-act="boarditem-click" data-val="{movieId:2760}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p1.meituan.net/movie/94c3a84626fd7650d6891088c4b88e5c27012.jpg@160w_220h_1e_1c" alt="魂断蓝桥" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/2760" title="魂断蓝桥" data-act="boarditem-click" data-val="{movieId:2760}">魂断蓝桥</a></p>
+                <p class="star">
+                        主演：费雯·丽,罗伯特·泰勒,露塞尔·沃特森
+                </p>
+        <p class="releasetime">上映时间：1940-05-17(美国)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">2</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+                        <dd>
+                                <i class="board-index board-index-10">10</i>
+            <a href="/films/1212" title="千与千寻" class="image-link" data-act="boarditem-click" data-val="{movieId:1212}">
+              <img src="//ms0.meituan.net/mywww/image/loading_2.e3d934bf.png" alt="" class="poster-default" />
+              <img data-src="http://p0.meituan.net/movie/b076ce63e9860ecf1ee9839badee5228329384.jpg@160w_220h_1e_1c" alt="千与千寻" class="board-img" />
+            </a>
+            <div class="board-item-main">
+              <div class="board-item-content">
+                      <div class="movie-item-info">
+                <p class="name"><a href="/films/1212" title="千与千寻" data-act="boarditem-click" data-val="{movieId:1212}">千与千寻</a></p>
+                <p class="star">
+                        主演：柊瑠美,入野自由,夏木真理
+                </p>
+        <p class="releasetime">上映时间：2001-07-20(日本)</p>    </div>
+            <div class="movie-item-number score-num">
+        <p class="score"><i class="integer">9.</i><i class="fraction">3</i></p>
+            </div>
+
+              </div>
+            </div>
+
+                        </dd>
+
+        </html>
+    '''
+
+    parse_one_page(html)
+    print(2)
+    # print(html)
