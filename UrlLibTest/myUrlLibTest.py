@@ -469,10 +469,10 @@ import requests
 
 
 
-# 3. 会话维持
-import requests
-
-session = requests.session()
+# # 3. 会话维持
+# import requests
+#
+# session = requests.session()
 # session.get('http://httpbin.org/cookies/set/number/123456789')
 # r =session.get('http://httpbin.org/cookies')
 # print(r.text)
