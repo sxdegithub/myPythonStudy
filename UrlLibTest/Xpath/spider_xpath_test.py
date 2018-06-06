@@ -66,15 +66,80 @@ from lxml import etree
 
 # 10. 属性获取
 # 获取节点中的属性值
+# from lxml import etree
+#
+# html = etree.parse('.\\test.html', etree.HTMLParser())
+# result = html.xpath('//li/a/@href')
+# print(result)
+#
+# result1= html.xpath("//li[@class = 'item-0']/a/@href")
+# result2= html.xpath("//li[contains(@class,'item-0' ) and @id='item']/a/@href" )
+#
+# print(result1)
+# print(result2)
+
+
+# 13. 按序选择
+from lxml import etree
+#
+# html= etree.parse('.\\test.html',etree.HTMLParser())
+# result = html.xpath('//li[1]/a/text()')
+# print(result)
+# result = html.xpath('//li[2]/a/text()')
+# print(result)
+
+
+
+######################################################################
+# 14. 节点轴选择
 from lxml import etree
 
 html = etree.parse('.\\test.html', etree.HTMLParser())
-result = html.xpath('//li/a/@href')
-print(result)
+print(etree.tostring(html))
+result = html.xpath('//li[1]/ancestor::*')
+for it in result:
+    print('----------->', it)
+# ancestor祖先节点
+result = html.xpath('//li[1]/ancestor::html')
+print('//li[1]ancestor::html---------->', result)
 
-result1= html.xpath("//li[@class = 'item-0']/a/@href")
-result2= html.xpath("//li[contains(@class,'item-0' ) and @id='item']/a/@href" )
+# descendant后代节点
+result = html.xpath('//li[1]/descendant::span')
+print('//li[1]/descendant::span------------>',result)
 
-print(result1)
-print(result2)
-######################################################################
+#attribute属性节点
+result = html.xpath('//li[1]/attribute::*')
+result_id = html.xpath('//li[1]/attribute::id')
+# result = html.xpath('//li[0]/attribute::*')
+
+print('//li[1]/attribute::*---------->', result)
+print('//li[1]/attribute::id---------->', type(result_id[0]), result_id[0])
+
+
+# parent父节点
+result = html.xpath('//li[1]/parent::*')
+print('//li[1]/parent::*---------->', result)
+
+# child子节点
+result = html.xpath('//li[1]/child::*')
+print('//li[1]/child::*---------->', result)
+
+# following，结束标签后续节点，除了祖先节点
+# following选取文档中当前节点的结束标签之后的所有节点，包含同一文档中按文档顺序位于上下文节点之前的所有节点，除了祖先节点。 following选取文档中当前节点的结束标签之后的所有节点跟preceding的范围一样，只是方向不同，following是向后选取，preceding是向前选取。
+result = html.xpath('//li[1]/following::*')
+print('//li[1]/following::*---------->', result)
+print('len(result)',len(result))
+
+# 同级的所有节点
+result = html.xpath('//li[1]/following-sibling::*')
+print('//li[1]/following::sibling---------->', result)
+
+# following后续第一个节点
+result = html.xpath('//li[1]/following::*[1]')
+print('//li[1]/following::*[1]---------->', result)
+print('len(result)',len(result))
+
+# preceding前续节点
+result = html.xpath('//li[5]/preceding::*')
+print('//li[5]/preceding前续节点::*---------->', result)
+print('len(result)',len(result))
