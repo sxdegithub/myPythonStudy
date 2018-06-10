@@ -3,6 +3,9 @@
 # Author: sx
 # BeautifulSoup测试
 # 转自，https://cuiqingcai.com/5548.html
+
+
+
 # from bs4 import BeautifulSoup
 #
 # soup0 = BeautifulSoup('<p>hahaha</p>', 'lxml')
@@ -313,26 +316,86 @@
 # (3)text
 # 匹配文本节点
 
-from  bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
+# import re
+#
+# html = '''
+# <div class="panel">
+#     <div class="panel-body">
+#         <a>Hello, this is a link
+#         </a>
+#         <a>Hello, this is a link, too</a>
+#     </div>
+# </div>
+# '''
+# # find_all()会返回所有匹配的节点
+# soup = BeautifulSoup(html, 'lxml')
+# print(soup.find_all(text=re.compile('link')))
 
 
-html = '''
+
+# 还有find()默认匹配第一个
+# from bs4 import BeautifulSoup
+# import re
+#
+# html = '''
+# <div class="panel">
+#     <div class="panel-heading">
+#         <h4>Hello</h4>
+#     </div>
+#     <div class="panel-body">
+#         <ul class="list" id="list-1">
+#             <li class="element">Foo</li>
+#             <li class="element">Bar</li>
+#             <li class="element">Jay</li>
+#         </ul>
+#         <ul class="list list-small" id="list-2">
+#             <li class="element">Foo</li>
+#             <li class="element">Bar</li>
+#         </ul>
+#     </div>
+# </div>
+# '''
+# soup = BeautifulSoup(html, 'lxml')
+# print(soup.find(name='ul'))
+# print(type(soup.find(name='ul')))
+# print(soup.find(class_='element'))
+
+"""
+find_parents()和find_parent()：前者返回所有祖先节点，后者返回直接父节点。
+find_next_siblings()和find_next_sibling()：前者返回后面所有的兄弟节点，后者返回后面第一个兄弟节点。
+find_previous_siblings()和find_previous_sibling()：前者返回前面所有的兄弟节点，后者返回前面第一个兄弟节点。
+find_all_next()和find_next()：前者返回节点后所有符合条件的节点，后者返回第一个符合条件的节点。
+find_all_previous()和find_previous()：前者返回节点后所有符合条件的节点，后者返回第一个符合条件的节点。
+
+"""
+
+# 7.CSS选择器
+#  只要调用select(),传入相应的css选择器即可
+from bs4 import BeautifulSoup
+
+html = """
 <div class="panel">
     <div class="panel-heading">
         <h4>Hello</h4>
     </div>
     <div class="panel-body">
         <ul class="list" id="list-1">
-            <li class="element2">Foo</li>
-            <li class="element3">Bar</li>
-            <li class="element4">Jay</li>
+            <li class="element">Foo</li>
+            <li class="element">Bar</li>
+            <li class="element">Jay</li>
         </ul>
         <ul class="list list-small" id="list-2">
-            <li class="element5">123</li>
-            <li class="element6">456</li>
+            <li class="element">Foo</li>
+            <li class="element1">Bar</li>
         </ul>
     </div>
 </div>
-'''
 
-soup =BeautifulSoup(html,'lxml')
+"""
+
+soup = BeautifulSoup(html, 'lxml')
+# print(soup.select('.panel-body'))
+# print(soup.select('ul'))
+print(soup.select('#list-2 .element'))
+print(soup.select('ul')[1])
