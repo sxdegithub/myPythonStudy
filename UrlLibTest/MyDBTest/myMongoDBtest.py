@@ -26,7 +26,7 @@ import pymongo
 #     client = pymongo.MongoClient('10.10.220.77', 27017)
 #     db = client.test_db
 #     collection = db.students
-#     # 插入数据
+#     # 1. 插入数据
 #     result =collection.insert(student3)
 #
 # finally:
